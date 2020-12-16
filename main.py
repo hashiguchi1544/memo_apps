@@ -8,9 +8,16 @@ def db_init():
     root_path = Path(__file__).parent
 
     db_path = root_path / 'sample.db'
-
+    sql = f"CREATE TABLE 'my_task' ('ID' INTEGER PRIMARY KEY AUTOINCREMENT, 'task' TEXT);"
     conn = sqlite3.connect(db_path)
-    conn.close()
+    try:
+        conn.execute(sql)
+    except sqlite3.OperationalError:
+        pass
+    else:
+        conn.commit()
+    finally:
+        conn.close()
 
 
 def write_task():
@@ -46,6 +53,20 @@ def delete_task():
     conn.close()
 
 
+def delete_db():
+    print("本当にDB初期化おk？？ if so push 'q'\n")
+    push_key = input()
+    if push_key == 'q':
+        sql_drop = f"DROP TABLE my_task; "
+        sql_crate_table = f"CREATE TABLE 'my_task' ('ID' INTEGER PRIMARY KEY AUTOINCREMENT, " \
+                          f"'task' TEXT);"
+        conn = sqlite3.connect('sample.db')
+        conn.execute(sql_drop)
+        conn.execute(sql_crate_table)
+        conn.commit()
+        conn.close()
+
+
 def main():
     db_init()
     while True:
@@ -55,15 +76,18 @@ def main():
             print(Fore.RESET + f'{id_int}, {task}')
 
         print(Fore.YELLOW + '--------------------------------------------------')
-        print(Fore.MAGENTA + '1:完了しましたぜ  2:タスクを追加する  3:終了する')
+        print(Fore.MAGENTA + '1:完了しましたぜ  2:タスクを追加する  3:DBを初期化  4:終了する')
 
-        num = int(input())
+        num = input()
 
-        if num == 1:
+        if num == '1':
             delete_task()
-        elif num == 2:
+        elif num == '2':
             write_task()
-        elif num == 3:
+        elif num == '3':
+            pass
+            delete_db()
+        elif num == '4':
             exit()
         else:
             continue
