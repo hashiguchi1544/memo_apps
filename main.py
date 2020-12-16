@@ -1,6 +1,8 @@
 import sqlite3
 from pathlib import Path
 
+from colorama import Fore
+
 
 def db_init():
     root_path = Path(__file__).parent
@@ -15,7 +17,6 @@ def write_task():
     conn = sqlite3.connect('sample.db')
     task = input('タスクを入力してください')
 
-    # sql = f'INSERT INTO my_task (task) VALUES ("{task}");'
     sql = f'INSERT INTO my_task (task) VALUES (?);'
 
     conn.execute(sql, (task,))
@@ -49,16 +50,14 @@ def main():
     db_init()
     while True:
         results = read_tasks()
-        print('--------------------------------------------------')
+        print(Fore.YELLOW + '--------------------------------------------------')
         for id_int, task in results:
-            print(f'{id_int}, {task}')
+            print(Fore.RESET + f'{id_int}, {task}')
 
-
-        print('--------------------------------------------------')
-        print('1:完了しましたぜ  2:タスクを追加する  3:終了する')
+        print(Fore.YELLOW + '--------------------------------------------------')
+        print(Fore.CYAN + '1:完了しましたぜ  2:タスクを追加する  3:終了する')
 
         num = int(input())
-
 
         if num == 1:
             delete_task()
