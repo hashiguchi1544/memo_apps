@@ -15,7 +15,7 @@ def db_init():
 
 def write_task():
     conn = sqlite3.connect('sample.db')
-    task = input('タスクを入力してください')
+    task = input('タスクを入力してください\n')
 
     sql = f'INSERT INTO my_task (task) VALUES (?);'
 
@@ -55,7 +55,7 @@ def main():
             print(Fore.RESET + f'{id_int}, {task}')
 
         print(Fore.YELLOW + '--------------------------------------------------')
-        print(Fore.CYAN + '1:完了しましたぜ  2:タスクを追加する  3:終了する')
+        print(Fore.MAGENTA + '1:完了しましたぜ  2:タスクを追加する  3:終了する')
 
         num = int(input())
 
@@ -65,6 +65,8 @@ def main():
             write_task()
         elif num == 3:
             exit()
+        else:
+            continue
 
 
 if __name__ == '__main__':
