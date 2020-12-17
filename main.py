@@ -54,14 +54,14 @@ def delete_task(db_path):
     conn.close()
 
 
-def delete_db():
+def delete_db(db_path):
     print("本当にDB初期化おk？？ if so push 'q'")
     push_key = input()
     if push_key == 'q':
         sql_drop = f"DROP TABLE my_task; "
         sql_crate_table = f"CREATE TABLE 'my_task' ('ID' INTEGER PRIMARY KEY AUTOINCREMENT, " \
                           f"'task' TEXT);"
-        conn = sqlite3.connect('sample.db')
+        conn = sqlite3.connect(db_path)
         conn.execute(sql_drop)
         conn.execute(sql_crate_table)
         conn.commit()
