@@ -23,7 +23,7 @@ def db_init():
 
 def write_task(db_path):
     conn = sqlite3.connect(db_path)
-    task = input('タスクを入力してください\n')
+    task = input('\nタスクを入力してください\n')
 
     sql = f'INSERT INTO my_task (task) VALUES (?);'
 
@@ -55,7 +55,7 @@ def delete_task(db_path):
 
 
 def delete_db(db_path):
-    print("本当にDB初期化おk？？ if so push 'q'")
+    print("\n本当にDB初期化おk？？ if so push 'q'")
     push_key = input()
     if push_key == 'q':
         sql_drop = f"DROP TABLE my_task; "
