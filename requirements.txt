@@ -1,0 +1,2 @@
+colorama==0.4.4
+-e git+https://github.com/hashiguchi1544/memo_apps.git@4a270aebeb3b3b8113de98af695514aaf2a267a0#egg=mycmd

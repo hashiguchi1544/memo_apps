@@ -43,7 +43,7 @@ def read_tasks():
 
 
 def delete_task():
-    num = int(input('完了した番号を入力指定ください'))
+    num = int(input('完了した番号を入力指定ください\n'))
     conn = sqlite3.connect('sample.db')
 
     sql = f'DELETE FROM my_task WHERE id = ?;'
@@ -54,7 +54,7 @@ def delete_task():
 
 
 def delete_db():
-    print("本当にDB初期化おk？？ if so push 'q'\n")
+    print("本当にDB初期化おk？？ if so push 'q'")
     push_key = input()
     if push_key == 'q':
         sql_drop = f"DROP TABLE my_task; "
