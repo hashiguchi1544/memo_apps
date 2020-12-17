@@ -18,10 +18,11 @@ def db_init():
         conn.commit()
     finally:
         conn.close()
+        return db_path
 
 
-def write_task():
-    conn = sqlite3.connect('sample.db')
+def write_task(db_path):
+    conn = sqlite3.connect(db_path)
     task = input('タスクを入力してください\n')
 
     sql = f'INSERT INTO my_task (task) VALUES (?);'
@@ -32,8 +33,8 @@ def write_task():
     conn.close()
 
 
-def read_tasks():
-    conn = sqlite3.connect('sample.db')
+def read_tasks(db_path):
+    conn = sqlite3.connect(db_path)
 
     sql = 'SELECT id, task FROM my_task;'
 
@@ -42,9 +43,9 @@ def read_tasks():
     return results
 
 
-def delete_task():
+def delete_task(db_path):
     num = int(input('完了した番号を入力指定ください\n'))
-    conn = sqlite3.connect('sample.db')
+    conn = sqlite3.connect(db_path)
 
     sql = f'DELETE FROM my_task WHERE id = ?;'
 
@@ -68,9 +69,9 @@ def delete_db():
 
 
 def main():
-    db_init()
+    db_path = db_init()
     while True:
-        results = read_tasks()
+        results = read_tasks(db_path)
         print(Fore.YELLOW + '--------------------------------------------------')
         for id_int, task in results:
             print(Fore.RESET + f'{id_int}, {task}')
@@ -81,12 +82,12 @@ def main():
         num = input()
 
         if num == '1':
-            delete_task()
+            delete_task(db_path)
         elif num == '2':
-            write_task()
+            write_task(db_path)
         elif num == '3':
             pass
-            delete_db()
+            delete_db(db_path)
         elif num == '4':
             exit()
         else:
