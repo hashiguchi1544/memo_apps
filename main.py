@@ -1,8 +1,6 @@
 import sqlite3
 from pathlib import Path
 
-from colorama import Fore
-
 
 def db_init():
     root_path = Path(__file__).parent
@@ -72,12 +70,12 @@ def main():
     db_path = db_init()
     while True:
         results = read_tasks(db_path)
-        print(Fore.YELLOW + '--------------------------------------------------')
+        print('--------------------------------------------------')
         for id_int, task in results:
-            print(Fore.RESET + f'{id_int}, {task}')
+            print(f'{id_int}, {task}')
 
-        print(Fore.YELLOW + '--------------------------------------------------')
-        print(Fore.MAGENTA + '1:完了しましたぜ  2:タスクを追加する  3:DBを初期化  4:終了する')
+        print('--------------------------------------------------')
+        print('1:完了しましたぜ  2:タスクを追加する  3:DBを初期化  4:終了する')
 
         num = input()
 
